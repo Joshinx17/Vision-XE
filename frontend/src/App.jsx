@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import WebcamFeed from "./components/WebcamFeed";
 import LiveDashboard from "./components/LiveDashboard";
 import ExamPage from "./pages/ExamPage";
+import SplashScreen from "./components/SplashScreen";
 import "./App.css";
 
 function App() {
   const location = useLocation();
+  const [splashDone, setSplashDone] = useState(false);
+
+  if (!splashDone) {
+    return <SplashScreen onComplete={() => setSplashDone(true)} />;
+  }
 
   return (
-    <div className="app-shell">
-      {/* ── SIDEBAR ── */}
+    <div className="app-shell animate-in">
       <aside className="sidebar">
         <div className="logo-block">
           <div className="logo">VISION<span>-X</span></div>
@@ -47,7 +52,6 @@ function App() {
         </div>
       </aside>
 
-      {/* ── MAIN CONTENT ── */}
       <main className="main-content">
         <Routes>
           <Route path="/" element={<WebcamFeed />} />
